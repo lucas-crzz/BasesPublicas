@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materiais de apoio — Bases de Dados Públicas · Instituto MONSTER</title>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     MATERIAIS DE APOIO — subpágina de "Bases de Dados Públicas"
+     Página INDEPENDENTE (ferramenta de pesquisa iMonster), não faz
+     parte da navegação do site principal da Iniciativa MONSTER.
+     navy 950 + dourado · Open Sans + Unbounded · Public Sans (UI)
+     ============================================================ */
+  :root { --head-font: 'Open Sans', system-ui, sans-serif; --serif: 'Unbounded', system-ui, sans-serif; }
+  /* Página independente — sem transições de navegação entre documentos. */
+  @view-transition { navigation: none; }
+  body { background: var(--paper); }
+
+  /* ---------- BRANDBAR (cabeçalho próprio, página independente) ---------- */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 40px; flex-wrap: wrap; }
+  .brandC { display: flex; align-items: center; gap: 13px; }
+  .brandC img { height: 60px; width: auto; }
+  .brandC .wm { font-family: var(--head-font); font-weight: 800; font-size: 19px; letter-spacing: -.02em; color: #fff; line-height: 1; }
+  .brandC .wm small { display:block; font-family: var(--font-text); font-weight: 600; font-size: 8.5px; letter-spacing: .28em; color: var(--gold); white-space: nowrap; margin-top: 5px; }
+  .brandbar .chip { font-family: var(--font-text); font-size: 12px; font-weight: 600; letter-spacing: .02em; color: rgba(255,255,255,.72); padding: 9px 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 100px; }
+
+  /* ---------- HERO (navy) ---------- */
+  .mhero { background: var(--navy-950); color: #fff; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .mhero::before { content:""; position:absolute; inset:0; background-image: radial-gradient(circle at center, rgba(194,162,78,.12) 1.3px, transparent 1.6px); background-size: 28px 28px; mask-image: radial-gradient(ellipse 75% 90% at 72% 26%, #000 25%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 90% at 72% 26%, #000 25%, transparent 78%); }
+  .mhero .mark { position:absolute; right: 5%; top: 52%; transform: translateY(-50%); width: 280px; max-width: 30vw; opacity: .07; pointer-events:none; z-index: 0; }
+  .mhero .container { position: relative; z-index: 1; padding-top: 38px; padding-bottom: 66px; }
+  .crumb { font-size: 13.5px; color: rgba(255,255,255,.6); display:flex; gap: 10px; align-items:center; font-family: var(--font-text); }
+  .crumb a { color: rgba(255,255,255,.6); transition: color .18s; } .crumb a:hover { color:#fff; }
+  .crumb .sep { opacity:.5; } .crumb .here { color:#fff; }
+  .mhero .tagline { color: var(--gold); font-family: var(--font-text); font-weight:700; font-size:12px; letter-spacing:.18em; text-transform:uppercase; display:inline-flex; align-items:center; gap:10px; margin-top: 34px; }
+  .mhero .tagline::before { content:""; width:22px; height:2px; background: var(--gold); }
+  .mhero h1 { font-family: var(--head-font); color:#fff; font-weight:800; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing:-.03em; margin: 20px 0 0; line-height: 1.02; max-width: 16ch; }
+  .mhero h1 em { font-style: normal; font-family: var(--serif); font-weight: 700; letter-spacing: -.022em; color: var(--gold); }
+  .mhero .lede { font-family: var(--font-text); color:rgba(255,255,255,.74); margin-top:22px; max-width:60ch; font-size: 1.08rem; line-height:1.68; }
+
+  /* ---------- CORPO: LISTA ---------- */
+  .mbody { background: var(--paper); color: var(--ink); }
+  .mbody .container { padding-top: 72px; padding-bottom: 96px; }
+  .listhead { display:flex; align-items:flex-end; justify-content:space-between; gap: 28px; flex-wrap: wrap; margin-bottom: 34px; }
+  .secnum { font-family: var(--font-text); font-weight: 700; font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-d); display:flex; align-items:center; gap: 16px; }
+  .listhead h2 { font-family: var(--head-font); font-weight:800; font-size: clamp(28px, 3.4vw, 42px); letter-spacing:-.025em; margin-top: 16px; line-height:1.08; }
+  .listhead .intro { color: var(--slate); font-size: 1.06rem; line-height:1.6; margin-top: 14px; max-width: 56ch; }
+  .listcount { font-family: var(--font-text); font-weight: 700; font-size: 13px; letter-spacing: .04em; color: var(--slate-2); white-space: nowrap; padding: 9px 16px; border: 1px solid var(--line-2); border-radius: 100px; background:#fff; }
+  .listcount b { color: var(--gold-d); }
+
+  .dllist { border-top: 1px solid var(--line-2); }
+  .dlrow { display:grid; grid-template-columns: 58px 1fr auto; gap: 26px; align-items:center; padding: 24px 6px; border-bottom: 1px solid var(--line-2); transition: background .18s; text-decoration: none; }
+  .dlrow:hover { background: rgba(20,58,102,.035); }
+  .dlbadge { width: 58px; height: 58px; border-radius: 6px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; flex:none;
+             font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: .04em; color:#fff; background: var(--navy-800); }
+  .dlbadge small { font-family: var(--font-text); font-weight: 700; font-size: 8px; letter-spacing: .1em; opacity:.7; }
+  .dlbadge.pdf { background: var(--gold-d); }
+  .dlbadge.sheet { background: var(--teal-d); }
+  .dlbadge.doc { background: var(--navy-600); }
+  .dlbadge.zip { background: var(--slate); }
+  .dlmain { min-width: 0; }
+  .dlmain .t { font-family: var(--head-font); font-weight: 700; font-size: 1.2rem; letter-spacing: -.01em; color: var(--ink); line-height: 1.3; }
+  .dlmain .d { color: var(--slate); font-size: .96rem; line-height: 1.5; margin-top: 6px; max-width: 62ch; }
+  .dlmeta { display:flex; align-items:center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .dlmeta .m { font-family: var(--font-text); font-weight: 600; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--slate-2); }
+  .dlmeta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line-2); }
+  .dlget { display:inline-flex; align-items:center; gap: 9px; font-family: var(--font-text); font-weight: 700; font-size: .92rem; color: var(--navy-900);
+           background:#fff; border: 1px solid var(--line-2); border-radius: 4px; padding: 12px 20px; white-space: nowrap; transition: border-color .18s, color .18s, background .18s, transform .18s; }
+  .dlrow:hover .dlget { border-color: var(--gold-d); color: var(--gold-d); background: rgba(168,134,47,.05); transform: translateY(-1px); }
+  .dlget .arr { font-size: 1.05em; }
+
+  /* estado vazio */
+  .dlempty { display:none; text-align:center; padding: 72px 24px; border: 1px dashed var(--line-2); border-radius: 10px; background:#fff; }
+  .dlempty.show { display:block; }
+  .dlempty h3 { font-family: var(--head-font); font-weight: 800; font-size: 1.3rem; color: var(--ink); }
+  .dlempty p { color: var(--slate); margin-top: 12px; font-size: 1rem; max-width: 46ch; margin-inline:auto; }
+
+  .listnote { font-family: var(--font-text); font-size: 12.5px; color: var(--slate-2); margin: 26px 2px 0; line-height: 1.6; }
+
+  /* ---------- FOOTER (próprio da página) ---------- */
+  .ftC { background: #050F1E; color: rgba(255,255,255,.6); }
+  .ftC .top { display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; padding: 48px 0 32px; align-items: start; }
+  .ftC .brand .wm { display: flex; align-items: center; gap: 13px; }
+  .ftC .brand .wm img { height: 52px; }
+  .ftC .brand .wm b { font-family: var(--head-font); font-weight: 800; font-size: 21px; color: #fff; letter-spacing: -.02em; line-height: 1; }
+  .ftC .brand .wm small { display: block; font-family: var(--font-text); font-weight: 600; font-size: 9.5px; letter-spacing: .28em; color: var(--gold); margin-top: 5px; }
+  .ftC .brand .wm .serif-gold { color: #C2A24E; }
+  .ftC .brand .ftnote { margin-top: 20px; font-family: var(--font-text); font-size: 13.5px; line-height: 1.65; color: rgba(255,255,255,.55); max-width: 40ch; }
+  .ftC .brand .backlink { display:inline-flex; align-items:center; gap: 8px; margin-top: 20px; font-family: var(--font-text); font-weight: 700; font-size: 13px; color: var(--gold); transition: opacity .18s; }
+  .ftC .brand .backlink:hover { opacity: .75; }
+  .ftC .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .ftC .metacol { display: flex; flex-direction: column; gap: 8px; }
+  .ftC .metacol .k { font-family: var(--font-text); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--gold); }
+  .ftC .metacol .v { font-family: var(--font-text); font-size: 13px; line-height: 1.55; color: rgba(255,255,255,.6); }
+  .ftC .metacol .v a { color: rgba(255,255,255,.6); transition: color .18s; }
+  .ftC .metacol .v a:hover { color: var(--gold); }
+  .ftC .bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 18px 0; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-text); font-size: 11.5px; color: rgba(255,255,255,.46); }
+
+  a { color: var(--gold-d); }
+  a:hover { color: var(--ink); }
+
+  @media (max-width: 980px) {
+    .ftC .top { grid-template-columns: 1fr; gap: 36px; }
+    .ftC .meta { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 680px) {
+    .brandC img { height: 50px; }
+    .ftC .meta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .dlrow { grid-template-columns: 46px 1fr; gap: 18px; }
+    .dlbadge { width: 46px; height: 46px; font-size: 11px; }
+    .dlget { grid-column: 1 / -1; justify-content: center; margin-top: 4px; }
+  }
+</style>
+</head>
+<body>
+
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#07182E"></rect>
+      <text x="50" y="58" font-family="Open Sans, sans-serif" font-size="30" font-weight="800" fill="#C2A24E" text-anchor="middle">iM</text>
+    </svg>
+  </template>
+
+  <!-- HERO -->
+  <header class="mhero">
+    <img class="mark" src="assets/Logo-White.png" alt="">
+    <div class="container">
+      <div class="brandbar">
+        <a class="brandC" href="index.html">
+          <img src="assets/Logo-White.png" alt="">
+          <span class="wm">Instituto <em class="serif-gold">MONSTER</em><small>CIÊNCIA · SAÚDE · AÇÃO</small></span>
+        </a>
+        <span class="chip">Diretório de dados públicos para pesquisa</span>
+      </div>
+      <div class="crumb">
+        <a href="index.html">Bases de dados públicas</a><span class="sep">/</span>
+        <span class="here">Materiais de apoio</span>
+      </div>
+      <span class="tagline">Área de apoio · Downloads</span>
+      <h1>Materiais de <em>apoio</em></h1>
+      <p class="lede">Manuais, dicionários de variáveis, tutoriais e demais documentos de suporte às bases de dados públicas — reunidos aqui para download livre pelos nossos alunos e pesquisadores.</p>
+    </div>
+  </header>
+
+  <!-- LISTA -->
+  <section class="mbody">
+    <div class="container">
+      <div class="listhead">
+        <div>
+          <div class="secnum reveal">Arquivos para download</div>
+          <h2 class="reveal">Documentos de suporte</h2>
+          <p class="intro reveal">Clique em qualquer item para baixar. O tipo e o tamanho de cada arquivo são exibidos ao lado do título.</p>
+        </div>
+        <span class="listcount reveal"><b id="dlCount">0</b> arquivo(s)</span>
+      </div>
+
+      <div class="dllist" id="dlList"></div>
+
+      <div class="dlempty" id="dlEmpty">
+        <h3>Nenhum material disponível ainda</h3>
+        <p>Em breve os documentos de apoio às bases de dados estarão disponíveis aqui para download.</p>
+      </div>
+
+      <p class="listnote">Os materiais são disponibilizados para fins educacionais e de pesquisa. Em caso de dúvida sobre algum documento, entre em <a href="mailto:instituto@monsterinitiative.com">contato</a> com a equipe.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="ftC">
+    <div class="container container-wide">
+      <div class="top">
+        <div class="brand">
+          <div class="wm"><img src="assets/Logo-White.png" alt=""><b>Instituto <em class="serif-gold">MONSTER</em><small>CIÊNCIA · SAÚDE · AÇÃO</small></b></div>
+          <p class="ftnote">Materiais de apoio ao diretório curado de bases de dados públicas brasileiras para pesquisa em saúde.</p>
+          <a class="backlink" href="index.html">← Voltar às bases de dados públicas</a>
+        </div>
+        <div class="meta">
+          <div class="metacol"><span class="k">Aviso</span><span class="v">Materiais disponibilizados para fins educacionais e de pesquisa.</span></div>
+          <div class="metacol"><span class="k">Compilação</span><span class="v">Lucas dos Santos Cruz</span></div>
+          <div class="metacol"><span class="k">Contato</span><span class="v"><a href="mailto:instituto@monsterinitiative.com">Fale com a equipe</a></span></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© Iniciativa MONSTER</span>
+        <span>Materiais de apoio · Bases de dados públicas</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="styles/reveal.js"></script>
+  <script>
+    // Engole a rejeição benigna de View Transition entre documentos (base.css),
+    // que não se aplica a esta página independente.
+    window.addEventListener('unhandledrejection', function (e) {
+      if (e && e.reason && String(e.reason).indexOf('Transition was skipped') !== -1) {
+        e.preventDefault();
+      }
+    });
+  </script>
+  <script>
+  /* ============================================================
+     ►►►  EDITE AQUI  ◄◄◄
+     Lista de materiais para download. Cada item precisa de:
+       title : nome que aparece na tela
+       file  : caminho do arquivo (sempre "downloads/nome-do-arquivo.ext")
+     Opcionais:
+       desc  : uma frase de descrição
+       size  : tamanho fixo (ex.: "2,4 MB") — se omitir, é detectado sozinho
+     O TIPO (PDF, planilha, etc.) é detectado pela extensão do arquivo.
+     Basta soltar o arquivo na pasta "downloads/" e adicionar uma linha abaixo.
+     ============================================================ */
+  const MATERIAIS = [
+    // Dicionários de variáveis
+    { title: "Dicionário de variáveis — SIM", desc: "Sistema de Informações sobre Mortalidade: descrição de todos os campos e categorias.", file: "downloads/DicionarioSIM.pdf" },
+    { title: "Dicionário de variáveis — SINASC", desc: "Sistema de Informações sobre Nascidos Vivos: descrição de todos os campos e categorias.", file: "downloads/DicionarioSINASC.pdf" },
+    { title: "Dicionário de variáveis — SINAN", desc: "Sistema de Informação de Agravos de Notificação: descrição de todos os campos e categorias.", file: "downloads/DicionarioSINAN.pdf" },
+    // Fichas e formulários
+    { title: "Ficha — Declaração de Óbito (SIM / DO)", desc: "Modelo da Declaração de Óbito utilizada na coleta de dados do SIM.", file: "downloads/FichaSIM(DO).pdf" },
+    { title: "Ficha de notificação — SINAN", desc: "Formulário de notificação de agravos e doenças de notificação compulsória.", file: "downloads/FichaSINAN.pdf" },
+    { title: "Ficha — AIH (SIH)", desc: "Autorização de Internação Hospitalar utilizada no Sistema de Informações Hospitalares.", file: "downloads/FichaSIH(AIH).pdf" },
+    // Guias e manuais
+    { title: "Guia rápido — DNV (SINASC)", desc: "Referência rápida para o preenchimento da Declaração de Nascido Vivo.", file: "downloads/GuiaRapidoDNV(SINASC).pdf" },
+    { title: "Manual — DNV (SINASC)", desc: "Manual completo de instruções para preenchimento da Declaração de Nascido Vivo.", file: "downloads/ManualDNV(SINASC).pdf" },
+  ];
+  /* ============================================================ */
+
+  const TYPES = {
+    pdf:  { cls: 'pdf',   label: 'PDF',  sub: 'Documento' },
+    xlsx: { cls: 'sheet', label: 'XLSX', sub: 'Planilha' },
+    xls:  { cls: 'sheet', label: 'XLS',  sub: 'Planilha' },
+    csv:  { cls: 'sheet', label: 'CSV',  sub: 'Planilha' },
+    doc:  { cls: 'doc',   label: 'DOC',  sub: 'Documento' },
+    docx: { cls: 'doc',   label: 'DOCX', sub: 'Documento' },
+    ppt:  { cls: 'doc',   label: 'PPT',  sub: 'Slides' },
+    pptx: { cls: 'doc',   label: 'PPTX', sub: 'Slides' },
+    zip:  { cls: 'zip',   label: 'ZIP',  sub: 'Arquivo' },
+    rar:  { cls: 'zip',   label: 'RAR',  sub: 'Arquivo' },
+  };
+
+  function ext(path) { const m = /\.([a-z0-9]+)(?:[?#].*)?$/i.exec(path || ''); return m ? m[1].toLowerCase() : ''; }
+  function typeOf(path) { return TYPES[ext(path)] || { cls: 'doc', label: (ext(path) || 'FILE').toUpperCase(), sub: 'Arquivo' }; }
+  function fmtBytes(b) {
+    if (!b || isNaN(b)) return '';
+    if (b < 1024) return b + ' B';
+    if (b < 1048576) return (b / 1024).toFixed(0).replace('.', ',') + ' KB';
+    return (b / 1048576).toFixed(1).replace('.', ',') + ' MB';
+  }
+
+  const listEl = document.getElementById('dlList');
+  const emptyEl = document.getElementById('dlEmpty');
+  const countEl = document.getElementById('dlCount');
+
+  function render() {
+    countEl.textContent = MATERIAIS.length;
+    if (!MATERIAIS.length) { emptyEl.classList.add('show'); return; }
+    emptyEl.classList.remove('show');
+
+    listEl.innerHTML = MATERIAIS.map(function (m, i) {
+      const t = typeOf(m.file);
+      const desc = m.desc ? '<div class="d">' + m.desc + '</div>' : '';
+      const size = m.size ? '<span class="dot"></span><span class="m" data-size>' + m.size + '</span>' : '<span class="dot"></span><span class="m" data-size data-auto="' + i + '"></span>';
+      return '' +
+        '<a class="dlrow" href="' + m.file + '" download>' +
+          '<span class="dlbadge ' + t.cls + '">' + t.label + '<small>' + t.sub + '</small></span>' +
+          '<span class="dlmain">' +
+            '<span class="t">' + m.title + '</span>' +
+            desc +
+            '<span class="dlmeta"><span class="m">' + t.sub + ' · ' + t.label + '</span>' + size + '</span>' +
+          '</span>' +
+          '<span class="dlget">Baixar <span class="arr">↓</span></span>' +
+        '</a>';
+    }).join('');
+
+    // Detecta o tamanho dos arquivos automaticamente (quando servido via http/https).
+    MATERIAIS.forEach(function (m, i) {
+      if (m.size) return;
+      const cell = listEl.querySelector('[data-auto="' + i + '"]');
+      if (!cell) return;
+      fetch(m.file, { method: 'HEAD' }).then(function (r) {
+        const len = r.headers.get('content-length');
+        const kb = len ? fmtBytes(parseInt(len, 10)) : '';
+        if (kb) cell.textContent = kb; else cell.previousElementSibling.remove(), cell.remove();
+      }).catch(function () {
+        if (cell.previousElementSibling) cell.previousElementSibling.remove();
+        cell.remove();
+      });
+    });
+  }
+
+  render();
+  </script>
+</body>
+</html>

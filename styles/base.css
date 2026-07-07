@@ -1,0 +1,441 @@
+/* ===========================================================
+   INSTITUTO MONSTER — Sistema base de design
+   Tokens, tipografia e primitivas compartilhadas
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..700&family=Public+Sans:ital,wght@0,300..700;1,400&display=swap');
+
+:root {
+  /* Azul-marinho — escala de prestígio */
+  --navy-950: #07182E;
+  --navy-900: #0A1F3D;
+  --navy-800: #0E2A4E;
+  --navy-700: #143A66;
+  --navy-600: #1E4D86;
+  --navy-500: #2E64A6;
+  --navy-400: #5B86B8;
+
+  /* Neutros frios (baixa saturação) */
+  --paper:   #FAFBFC;
+  --paper-2: #F2F5F8;
+  --paper-3: #E9EEF3;
+  --line:    #E0E6ED;
+  --line-2:  #CDD6E0;
+  --ink:     #0C1A2B;
+  --slate:   #46556B;
+  --slate-2: #6B7A90;
+  --white:   #FFFFFF;
+
+  /* Acentos (mesma família de luz/croma, hue variável) */
+  --gold:    #C2A24E;   /* prestígio acadêmico  */
+  --gold-d:  #A8862F;
+  --teal:    #16A0A6;   /* evolução da marca    */
+  --teal-d:  #0E7F86;
+
+  /* Acento ativo (cada direção redefine) */
+  --accent:   var(--navy-600);
+  --accent-d: var(--navy-700);
+
+  /* Tipografia */
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-text:    'Public Sans', system-ui, sans-serif;
+
+  /* Métrica */
+  --maxw: 1200px;
+  --radius: 4px;
+  --shadow-sm: 0 1px 2px rgba(12, 26, 43, .06), 0 1px 1px rgba(12, 26, 43, .04);
+  --shadow-md: 0 8px 24px -10px rgba(12, 26, 43, .18);
+  --shadow-lg: 0 24px 60px -24px rgba(10, 31, 61, .35);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  color: var(--ink);
+  background: var(--white);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+p { margin: 0; text-wrap: pretty; }
+
+/* ---------- Utilidades ---------- */
+.container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 32px; }
+.container-wide { max-width: 1340px; }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px; height: 2px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.lede { font-size: 1.18rem; color: var(--slate); line-height: 1.62; font-weight: 400; }
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-text);
+  font-weight: 600; font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  padding: 14px 26px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .2s ease;
+  line-height: 1;
+  white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-d); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-2); }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-on-navy { background: #fff; color: var(--navy-900); }
+.btn-on-navy:hover { background: var(--paper-2); transform: translateY(-1px); }
+.btn-outline-navy { background: transparent; color: #fff; border-color: rgba(255,255,255,.32); }
+.btn-outline-navy:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+.btn .arr { transition: transform .2s ease; }
+.btn:hover .arr { transform: translateX(3px); }
+
+.textlink {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 600; color: var(--accent);
+  font-size: 0.92rem;
+}
+.textlink .arr { transition: transform .2s ease; }
+.textlink:hover .arr { transform: translateX(4px); }
+
+/* ---------- Placeholder de imagem ---------- */
+.ph {
+  position: relative;
+  background:
+    repeating-linear-gradient(135deg, rgba(20,58,102,.05) 0 12px, rgba(20,58,102,.09) 12px 24px),
+    var(--paper-2);
+  border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--slate-2);
+  overflow: hidden;
+}
+.ph::after {
+  content: attr(data-label);
+  font-family: 'Public Sans', monospace;
+  font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--slate-2);
+  background: rgba(255,255,255,.78);
+  padding: 7px 13px; border-radius: 100px;
+  border: 1px solid var(--line);
+}
+.ph-dark {
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0 12px, rgba(255,255,255,.07) 12px 24px),
+    var(--navy-800);
+  border-color: rgba(255,255,255,.12);
+}
+.ph-dark::after { background: rgba(10,31,61,.6); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.14); }
+
+/* Malha de rede (motivo da marca) como textura sutil */
+.netgrid {
+  background-image:
+    radial-gradient(circle at center, rgba(255,255,255,.10) 1.4px, transparent 1.6px);
+  background-size: 26px 26px;
+}
+
+/* reveal */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   NAV — Dropdown compartilhado “Grupos de pesquisa”
+   Estrutura: .menuC > .item[data-dropdown] > button + .submenu
+   ============================================================ */
+.menuC .item { position: relative; display: flex; align-items: center; }
+.menuC .item > button.ddbtn {
+  font-family: var(--font-text); font-size: 14px;
+  color: rgba(255,255,255,.72); font-weight: 500;
+  white-space: nowrap; letter-spacing: .01em;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  transition: color .18s; line-height: 1;
+  display: inline-flex; align-items: center;
+}
+.menuC .item > button.ddbtn:hover,
+.menuC .item > button.ddbtn.active,
+.menuC .item.open > button.ddbtn { color: #fff; }
+.menuC .item > button.ddbtn.active { position: relative; }
+.menuC .item > button.ddbtn.active::after {
+  content: ""; position: absolute; left: 0; right: 16px;
+  bottom: -6px; height: 2px; background: var(--gold);
+}
+.menuC .item > button.ddbtn .caret {
+  display: inline-block; margin-left: 6px;
+  font-size: 9px; vertical-align: 1px;
+  transition: transform .2s ease; color: var(--gold);
+}
+.menuC .item.open > button.ddbtn .caret { transform: rotate(180deg); }
+
+.menuC .submenu {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  width: 420px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 22px 52px rgba(5,15,30,.32);
+  padding: 8px;
+  display: flex; flex-direction: column;
+  gap: 2px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s, transform .18s;
+  z-index: 60;
+}
+.menuC .submenu::before {
+  content: ""; position: absolute; top: -7px; left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px; height: 12px; background: var(--paper);
+  border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+}
+.menuC .item.open .submenu {
+  opacity: 1; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.menuC .submenu a {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 10px; border-radius: 3px;
+  color: var(--slate);
+  font-family: var(--font-text);
+  font-size: 13.5px; font-weight: 500;
+  letter-spacing: 0;
+  white-space: normal;
+  text-decoration: none;
+  position: static;
+}
+.menuC .submenu a::after { display: none !important; }
+.menuC .submenu a:hover { background: rgba(194,162,78,.10); color: var(--ink); }
+.menuC .submenu a .ico {
+  flex: 0 0 40px; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(10,31,61,.08);
+}
+.menuC .submenu a .ico img {
+  width: 112%; height: 112%;
+  object-fit: contain;
+}
+.menuC .submenu a .txt { flex: 1; min-width: 0; line-height: 1.25; }
+.menuC .submenu a .gk {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 11.5px; letter-spacing: .14em;
+  color: var(--gold-d); display: block; margin-bottom: 3px;
+}
+.menuC .submenu a .en {
+  display: block; font-size: 11.5px;
+  color: var(--slate-2); font-weight: 500;
+  letter-spacing: 0; line-height: 1.35;
+}
+
+@media (max-width: 980px) {
+  .menuC .submenu { width: min(92vw, 380px); }
+}
+
+/* ============================================================
+   BIOMODAL — modal de perfil de pesquisador (unificado)
+   Layout: foto retangular à esquerda, conteúdo à direita.
+   Cartão largo e profissional, tom institucional.
+   ============================================================ */
+.biomodal {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+}
+.biomodal.open { opacity: 1; pointer-events: auto; }
+
+.biomodal-scrim {
+  position: absolute; inset: 0;
+  background: rgba(5,15,30,.68);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+.biomodal-card {
+  position: relative; z-index: 1;
+  width: min(720px, 94vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 32px 80px -20px rgba(5,15,30,.55);
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  transform: translateY(12px) scale(.98);
+  transition: transform .25s ease;
+}
+.biomodal.open .biomodal-card { transform: none; }
+
+.biomodal-x {
+  position: absolute; top: 14px; right: 14px; z-index: 2;
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 50%;
+  cursor: pointer; font-size: 22px; line-height: 1;
+  display: grid; place-items: center;
+  color: var(--slate-2);
+  transition: background .18s, color .18s;
+}
+.biomodal-x:hover { background: var(--paper-2); color: var(--ink); }
+
+.biomodal-photo {
+  position: relative;
+  background: var(--navy-800);
+  display: grid; place-items: center;
+  min-height: 300px;
+  border-radius: 8px 0 0 8px;
+  overflow: hidden;
+}
+.biomodal-photo::before {
+  content: attr(data-initials);
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 64px; color: rgba(255,255,255,.20);
+}
+.biomodal-photo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+}
+
+.biomodal-body {
+  padding: 40px 36px 36px;
+  display: flex; flex-direction: column;
+}
+.biomodal-name {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.55rem; letter-spacing: -.025em;
+  line-height: 1.15; color: var(--ink);
+  padding-right: 28px;
+}
+.biomodal-role {
+  font-family: var(--font-text); font-weight: 700;
+  font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold-d);
+  margin-top: 12px;
+}
+.biomodal-bio {
+  color: var(--slate); font-size: 1rem;
+  line-height: 1.62; margin-top: 20px;
+  flex: 1;
+}
+.biomodal-pending { font-style: italic; color: var(--slate-2); }
+
+.biomodal-links {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.biomodal-links a {
+  font-family: var(--font-text); font-weight: 600;
+  font-size: 13px; padding: 8px 16px;
+  border: 1px solid var(--line-2); border-radius: 3px;
+  color: var(--ink);
+  transition: border-color .18s, color .18s, background .18s;
+}
+.biomodal-links a:hover {
+  border-color: var(--gold-d); color: var(--gold-d);
+  background: rgba(168,134,47,.06);
+}
+
+@media (max-width: 600px) {
+  .biomodal-card { grid-template-columns: 1fr; }
+  .biomodal-photo { min-height: 240px; border-radius: 8px 8px 0 0; }
+}
+
+/* ===========================================================
+   Rebranding v1.0 — wordmark "Iniciativa MONSTER"
+   Applied site-wide via the navbar / closing / footer.
+   =========================================================== */
+/* Destaque "MONSTER" — Unbounded (sans geométrica contemporânea)
+   classe mantém o nome legado .serif-gold para não tocar nos HTMLs. */
+.serif-gold {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  color: var(--gold);
+  letter-spacing: -.022em;
+  font-size: .92em;
+}
+
+/* Tighten navbar wordmark so "Iniciativa MONSTER" fits cleanly */
+.brandC .wm { font-size: 22px !important; letter-spacing: -.018em !important; }
+.brandC .wm small { font-size: 9.5px !important; letter-spacing: .26em !important; margin-top: 6px !important; }
+.brandC img { height: 64px !important; }
+
+/* ===========================================================
+   Transições entre páginas (cross-document View Transitions)
+   Suaviza a navegação: em vez de a página piscar e o logo
+   "sumir e reaparecer", a barra superior faz um crossfade
+   contínuo. Navegadores sem suporte simplesmente carregam
+   a página normalmente (sem regressão).
+   =========================================================== */
+@view-transition { navigation: auto; }
+
+/* A barra de navegação é tratada como um elemento persistente,
+   então o logo/wordmark faz crossfade suave entre as páginas. */
+.navC { view-transition-name: site-nav; }
+
+::view-transition-group(site-nav) { animation-duration: .42s; }
+::view-transition-old(site-nav),
+::view-transition-new(site-nav) {
+  animation-duration: .42s;
+  animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Crossfade geral do corpo da página um pouco mais suave. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .4s;
+  animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) { animation: none !important; }
+}
+

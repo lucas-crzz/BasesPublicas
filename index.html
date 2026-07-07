@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bases de Dados Públicas do Brasil — Instituto MONSTER</title>
+<link rel="icon" type="image/png" sizes="256x256" href="assets/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     BASES DE DADOS PÚBLICAS — herda Iniciativa MONSTER
+     navy 950 + dourado · Open Sans + Unbounded · Public Sans (UI)
+     Ferramenta de pesquisa do Instituto MONSTER (iMonster).
+     ============================================================ */
+  :root { --head-font: 'Open Sans', system-ui, sans-serif; --serif: 'Unbounded', system-ui, sans-serif; }
+  /* Página independente — sem transições de navegação entre documentos. */
+  @view-transition { navigation: none; }
+  body { background: var(--paper); }
+
+  /* ---------- BRANDBAR (cabeçalho próprio, página independente) ---------- */
+  .brandbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 44px; flex-wrap: wrap; }
+  .brandC { display: flex; align-items: center; gap: 13px; }
+  .brandC img { height: 60px; width: auto; }
+  .brandC .wm { font-family: var(--head-font); font-weight: 800; font-size: 19px; letter-spacing: -.02em; color: #fff; line-height: 1; }
+  .brandC .wm small { display:block; font-family: var(--font-text); font-weight: 600; font-size: 8.5px; letter-spacing: .28em; color: var(--gold); white-space: nowrap; margin-top: 5px; }
+  .brandbar .chip { font-family: var(--font-text); font-size: 12px; font-weight: 600; letter-spacing: .02em; color: rgba(255,255,255,.72); padding: 9px 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 100px; }
+
+  /* ---------- HERO (navy) ---------- */
+  .hero { background: var(--navy-950); color: #fff; position: relative; overflow: hidden; }
+  .hero::before { content:""; position:absolute; inset:0; background-image: radial-gradient(circle at center, rgba(194,162,78,.12) 1.3px, transparent 1.6px); background-size: 28px 28px; mask-image: radial-gradient(ellipse 75% 90% at 70% 30%, #000 25%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 75% 90% at 70% 30%, #000 25%, transparent 78%); }
+  .hero .container { position: relative; z-index: 1; padding-top: 38px; padding-bottom: 66px; }
+  .hero-grid { display: grid; grid-template-columns: 1.32fr .78fr; gap: 56px; align-items: end; }
+  .hero .eyebrow { color: var(--gold); }
+  .hero .eyebrow::before { background: var(--gold); }
+  .hero h1 { font-family: var(--head-font); font-weight: 800; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.02; letter-spacing: -.03em; color: #fff; margin: 22px 0 20px; max-width: 16ch; }
+  .hero h1 em { font-style: normal; font-family: var(--serif); font-weight: 700; letter-spacing: -.022em; color: var(--gold); }
+  .hero .lede { color: rgba(255,255,255,.74); font-size: 1.08rem; line-height: 1.68; max-width: 60ch; }
+  .hero .tagline { font-family: var(--font-text); font-weight: 700; font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-top: 28px; }
+  .hero-side { border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 28px 28px 24px; background: rgba(255,255,255,.03); }
+  .hero-side h2 { font-family: var(--head-font); font-weight: 800; font-size: 1.06rem; color: #fff; letter-spacing: -.01em; }
+  .hero-side p { color: rgba(255,255,255,.62); font-size: .95rem; line-height: 1.6; margin-top: 12px; }
+  .pillrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pill { font-family: var(--font-text); padding: 6px 12px; border-radius: 100px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.78); font-size: .8rem; font-weight: 600; }
+  .matlink { display:flex; align-items:center; justify-content:space-between; gap: 14px; margin-top: 22px; padding: 15px 18px; border: 1px solid rgba(194,162,78,.32); background: rgba(194,162,78,.08); border-radius: 5px; transition: background .18s, border-color .18s, transform .18s; }
+  .matlink:hover { background: rgba(194,162,78,.14); border-color: rgba(194,162,78,.55); transform: translateY(-1px); }
+  .matlink .matlink-k { display:block; font-family: var(--head-font); font-weight: 800; font-size: .98rem; color: #fff; letter-spacing: -.01em; }
+  .matlink .matlink-d { display:block; font-family: var(--font-text); font-size: .8rem; color: rgba(255,255,255,.6); margin-top: 4px; line-height: 1.4; }
+  .matlink .matlink-arr { flex:none; width: 32px; height: 32px; display:grid; place-items:center; border-radius: 50%; background: var(--gold); color: var(--navy-950); font-weight: 800; font-size: 15px; transition: transform .18s; }
+  .matlink:hover .matlink-arr { transform: translateY(2px); }
+
+  /* ---------- CONTENT (paper) ---------- */
+  .content { padding: 64px 0 24px; }
+  .sec-label { font-family: var(--font-text); font-weight: 700; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-d); margin-bottom: 14px; }
+  .section-title { font-family: var(--head-font); font-weight: 800; font-size: 1.5rem; letter-spacing: -.022em; color: var(--ink); }
+
+  .overview { display: grid; grid-template-columns: 1.05fr .95fr; gap: 22px; align-items: stretch; }
+  .panel { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 30px 32px; }
+  .panel .section-text { color: var(--slate); line-height: 1.66; margin-top: 14px; font-size: 1rem; }
+  .panel .section-text strong { color: var(--ink); font-weight: 700; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; height: 100%; }
+  .stat { background: #fff; padding: 26px 28px; }
+  .stat .n { font-family: var(--head-font); font-weight: 800; font-size: 2.4rem; letter-spacing: -.04em; color: var(--ink); line-height: 1; }
+  .stat .label { font-family: var(--font-text); color: var(--slate-2); font-size: .82rem; font-weight: 600; letter-spacing: .02em; margin-top: 8px; }
+
+  /* ---------- FEATURES ---------- */
+  .feature-head { margin: 56px 0 22px; }
+  .feature-head p { color: var(--slate); margin-top: 8px; font-size: 1rem; }
+  .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .feature-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 26px 24px; min-height: 218px; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; position: relative; }
+  .feature-card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background: var(--gold); opacity: 0; transition: opacity .2s ease; border-radius: 6px 0 0 6px; }
+  .feature-card:hover { transform: translateY(-3px); border-color: var(--line-2); box-shadow: var(--shadow-md); }
+  .feature-card:hover::before { opacity: 1; }
+  .feature-kicker { font-family: var(--font-text); font-weight: 700; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-d); margin-bottom: 14px; }
+  .feature-card h3 { font-family: var(--head-font); font-weight: 800; font-size: 1.02rem; line-height: 1.26; letter-spacing: -.01em; color: var(--ink); margin-bottom: 10px; }
+  .feature-card p { color: var(--slate); font-size: .92rem; line-height: 1.55; margin-bottom: 18px; }
+  .feature-tag { margin-top: auto; align-self: flex-start; font-family: var(--font-text); font-weight: 700; font-size: .76rem; letter-spacing: .02em; padding: 5px 11px; border-radius: 100px; background: var(--paper-2); border: 1px solid var(--line); color: var(--slate); }
+
+  /* ---------- CONTROLS ---------- */
+  .controls { display: grid; grid-template-columns: 2.2fr 1fr 1fr 1fr auto auto; gap: 10px; margin: 56px 0 16px; }
+  .controls input, .controls select { width: 100%; padding: 13px 15px; border-radius: 4px; border: 1px solid var(--line-2); background: #fff; color: var(--ink); font-family: var(--font-text); font-size: .94rem; transition: border-color .18s, box-shadow .18s; }
+  .controls input::placeholder { color: var(--slate-2); }
+  .controls input:focus, .controls select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(194,162,78,.16); }
+  .controls .btn { justify-content: center; }
+  .controls .btn-ghost { background: #fff; }
+  #csvBtn { background: var(--navy-700); color: #fff; border-color: var(--navy-700); }
+  #csvBtn:hover { background: var(--navy-800); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  /* ---------- TABLE ---------- */
+  .table-shell { overflow: auto; border: 1px solid var(--line); border-radius: 6px; background: #fff; box-shadow: var(--shadow-sm); }
+  table { width: 100%; min-width: 1180px; border-collapse: collapse; }
+  thead th { position: sticky; top: 0; z-index: 2; text-align: left; padding: 15px 14px; background: var(--navy-950); color: #fff; font-family: var(--font-text); font-weight: 700; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+  tbody td { padding: 15px 14px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.55; font-size: .92rem; color: var(--slate); }
+  tbody td strong { color: var(--ink); font-weight: 700; font-family: var(--head-font); letter-spacing: -.01em; }
+  tbody tr:nth-child(even) td { background: var(--paper); }
+  tbody tr:hover td { background: rgba(194,162,78,.06); }
+  .cat-pill { display: inline-block; padding: 4px 10px; border-radius: 100px; background: rgba(194,162,78,.10); color: var(--gold-d); border: 1px solid rgba(168,134,47,.22); font-family: var(--font-text); font-size: .76rem; font-weight: 700; white-space: nowrap; }
+  #dbTable tbody tr.rowlink { cursor: pointer; }
+  #dbTable tbody tr.rowlink:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  .ext-arr { color: var(--gold-d); font-weight: 700; font-size: .82em; margin-left: 5px; opacity: 0; transition: opacity .15s; }
+  tbody tr:hover .ext-arr, tbody tr:focus-visible .ext-arr { opacity: 1; }
+  .tablenote { font-family: var(--font-text); font-size: 12.5px; color: var(--slate-2); margin: 14px 2px 0; }
+
+  /* ---------- FOOTER (próprio da página) ---------- */
+  .ftC { background: #050F1E; color: rgba(255,255,255,.6); margin-top: 64px; }
+  .ftC .top { display: grid; grid-template-columns: 1fr 1.35fr; gap: 56px; padding: 48px 0 32px; align-items: start; }
+  .ftC .brand .wm { display: flex; align-items: center; gap: 13px; }
+  .ftC .brand .wm img { height: 52px; }
+  .ftC .brand .wm b { font-family: var(--head-font); font-weight: 800; font-size: 21px; color: #fff; letter-spacing: -.02em; line-height: 1; }
+  .ftC .brand .wm small { display: block; font-family: var(--font-text); font-weight: 600; font-size: 9.5px; letter-spacing: .28em; color: var(--gold); margin-top: 5px; }
+  .ftC .brand .wm .serif-gold { color: #C2A24E; }
+  .ftC .brand .ftnote { margin-top: 20px; font-family: var(--font-text); font-size: 13.5px; line-height: 1.65; color: rgba(255,255,255,.55); max-width: 38ch; }
+  .ftC .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .ftC .metacol { display: flex; flex-direction: column; gap: 8px; }
+  .ftC .metacol .k { font-family: var(--font-text); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--gold); }
+  .ftC .metacol .v { font-family: var(--font-text); font-size: 13px; line-height: 1.55; color: rgba(255,255,255,.6); }
+  .ftC .bottom { border-top: 1px solid rgba(255,255,255,.08); padding: 18px 0; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-text); font-size: 11.5px; color: rgba(255,255,255,.46); }
+
+  /* ---------- RESPONSIVO ---------- */
+  @media (max-width: 1180px) {
+    .hero-grid, .overview { grid-template-columns: 1fr; gap: 36px; }
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .controls { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 980px) {
+    .ftC .top { grid-template-columns: 1fr; gap: 36px; }
+    .ftC .meta { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 680px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .controls { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .brandC img { height: 50px; }
+    .ftC .meta { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <template id="__bundler_thumbnail">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#07182E"/>
+      <text x="50" y="58" font-family="Open Sans, sans-serif" font-size="30" font-weight="800" fill="#C2A24E" text-anchor="middle">iM</text>
+    </svg>
+  </template>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="brandbar">
+        <div class="brandC">
+          <img src="assets/Logo-White.png" alt="">
+          <span class="wm">Instituto <em class="serif-gold">MONSTER</em><small>CIÊNCIA · SAÚDE · AÇÃO</small></span>
+        </div>
+        <span class="chip">Diretório de dados públicos para pesquisa</span>
+      </div>
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Ferramenta de pesquisa · iMonster</span>
+          <h1>Bases de dados <em>públicas</em> do Brasil</h1>
+          <p class="lede">
+            Um catálogo curado para localizar rapidamente bases, sistemas e portais públicos úteis em
+            epidemiologia, saúde coletiva, vigilância, assistência, regulação sanitária e determinantes
+            sociais — reunidos para acelerar o trabalho dos nossos pesquisadores.
+          </p>
+          <div class="tagline">CIÊNCIA · SAÚDE · AÇÃO</div>
+        </div>
+        <aside class="hero-side">
+          <h2>Leitura orientada por pesquisa</h2>
+          <p>
+            A estrutura foi desenhada para consulta eficiente: destaques iniciais, filtros imediatos e uma
+            tabela de referência com descrição do conteúdo, nível de agregação, formato de acesso e
+            utilidade em pesquisa.
+          </p>
+          <div class="pillrow">
+            <span class="pill">Panorama</span>
+            <span class="pill">Dados de saúde</span>
+            <span class="pill">Acesso aberto</span>
+            <span class="pill">Fluxo de pesquisa</span>
+          </div>
+          <a class="matlink" href="materiais-apoio.html">
+            <span class="matlink-txt">
+              <span class="matlink-k">Materiais de apoio</span>
+              <span class="matlink-d">Manuais, dicionários de variáveis e tutoriais para download</span>
+            </span>
+            <span class="matlink-arr">↓</span>
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <div class="container container-wide">
+
+      <section class="overview">
+        <div class="panel">
+          <div class="sec-label">Como usar</div>
+          <h2 class="section-title">Encontre a base certa em segundos</h2>
+          <p class="section-text">
+            Pesquise por termos como <strong>mortalidade</strong>, <strong>APS</strong>,
+            <strong>vacinação</strong>, <strong>câncer</strong>, <strong>saneamento</strong>,
+            <strong>IBGE</strong> ou <strong>Anvisa</strong>. Os filtros ajudam a separar bases
+            administrativas do SUS, inquéritos nacionais, dados regulatórios e plataformas de contexto
+            socioambiental.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="n" id="statTotal"></div><div class="label">bases / listagens</div></div>
+          <div class="stat"><div class="n" id="statOrg"></div><div class="label">órgãos / fontes</div></div>
+          <div class="stat"><div class="n" id="statCat"></div><div class="label">categorias</div></div>
+          <div class="stat"><div class="n" id="statVisible"></div><div class="label">resultados visíveis</div></div>
+        </div>
+      </section>
+
+      <section class="feature-head">
+        <div class="sec-label">Comece por aqui</div>
+        <h2 class="section-title">Bases mais úteis para começar</h2>
+        <p>Seleção inicial para mortalidade, nascimentos, vigilância, atenção primária e inquéritos nacionais.</p>
+      </section>
+      <div class="feature-grid">
+
+        <a class="feature-card" href="https://datasus.saude.gov.br/informacoes-de-saude-tabnet/" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">Ministério da Saúde / DATASUS</div>
+          <h3>TABNET – Informações de Saúde</h3>
+          <p>Séries temporais, estudos ecológicos, descrição epidemiológica.</p>
+          <span class="feature-tag">Tabulador</span>
+        </a>
+
+        <a class="feature-card" href="https://datasus.saude.gov.br/mortalidade-desde-1996-pela-cid-10/" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">Ministério da Saúde / DATASUS</div>
+          <h3>SIM – Sistema de Informações sobre Mortalidade</h3>
+          <p>Mortalidade geral e específica, causas evitáveis, carga de doença.</p>
+          <span class="feature-tag">Estatísticas vitais</span>
+        </a>
+
+        <a class="feature-card" href="https://datasus.saude.gov.br/nascidos-vivos-desde-1994/" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">Ministério da Saúde / DATASUS</div>
+          <h3>SINASC – Sistema de Informações sobre Nascidos Vivos</h3>
+          <p>Saúde materno-infantil, prematuridade, baixo peso ao nascer.</p>
+          <span class="feature-tag">Estatísticas vitais</span>
+        </a>
+
+        <a class="feature-card" href="https://datasus.saude.gov.br/acesso-a-informacao/doencas-e-agravos-de-notificacao-de-2007-em-diante-sinan/" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">Ministério da Saúde / DATASUS</div>
+          <h3>SINAN – Agravos de notificação</h3>
+          <p>Incidência notificada, distribuição territorial e perfil dos agravos.</p>
+          <span class="feature-tag">Vigilância epidemiológica</span>
+        </a>
+
+        <a class="feature-card" href="https://www.gov.br/saude/pt-br/vacinacao/paineis-de-vacinacao" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">Ministério da Saúde</div>
+          <h3>Painéis de vacinação</h3>
+          <p>Cobertura vacinal, desigualdades territoriais, séries temporais.</p>
+          <span class="feature-tag">Imunização</span>
+        </a>
+
+        <a class="feature-card" href="https://www.gov.br/saude/pt-br/composicao/svsa/inqueritos-de-saude/vigitel" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">Ministério da Saúde</div>
+          <h3>Vigitel</h3>
+          <p>DCNT, tabagismo, álcool, atividade física, alimentação, obesidade.</p>
+          <span class="feature-tag">Inquérito nacional</span>
+        </a>
+
+        <a class="feature-card" href="https://www.ibge.gov.br/estatisticas/sociais/saude/9160-pesquisa-nacional-de-saude.html" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">IBGE</div>
+          <h3>PNS – Pesquisa Nacional de Saúde</h3>
+          <p>Epidemiologia analítica e descritiva com autorrelato.</p>
+          <span class="feature-tag">Inquérito nacional</span>
+        </a>
+
+        <a class="feature-card" href="https://sidra.ibge.gov.br/" target="_blank" rel="noopener noreferrer">
+          <div class="feature-kicker">IBGE</div>
+          <h3>SIDRA</h3>
+          <p>Denominadores, indicadores contextuais, padronização de taxas.</p>
+          <span class="feature-tag">Tabelas agregadas</span>
+        </a>
+
+      </div>
+
+      <section class="controls">
+        <input id="search" type="search" placeholder="Buscar por base, órgão, categoria, dados disponíveis ou uso em pesquisa">
+        <select id="orgFilter">
+          <option value="">Todos os órgãos</option>
+          <option value="ANA">ANA</option><option value="ANS">ANS</option><option value="Anvisa">Anvisa</option><option value="Fiocruz">Fiocruz</option><option value="IBGE">IBGE</option><option value="INCA">INCA</option><option value="Ipea">Ipea</option><option value="Ministério da Saúde">Ministério da Saúde</option><option value="Ministério da Saúde / DATASUS">Ministério da Saúde / DATASUS</option><option value="Ministério das Cidades">Ministério das Cidades</option>
+        </select>
+        <select id="catFilter">
+          <option value="">Todas as categorias</option>
+          <option value="Assistência / ambulatório">Assistência / ambulatório</option><option value="Assistência / internações">Assistência / internações</option><option value="Atenção Primária">Atenção Primária</option><option value="Consulta territorial">Consulta territorial</option><option value="Câncer">Câncer</option><option value="Dados abertos">Dados abertos</option><option value="Demografia">Demografia</option><option value="Determinantes sociais">Determinantes sociais</option><option value="Estatísticas vitais">Estatísticas vitais</option><option value="Farmacoepidemiologia">Farmacoepidemiologia</option><option value="Hidrometeorologia">Hidrometeorologia</option><option value="Imunização">Imunização</option><option value="Inquérito domiciliar">Inquérito domiciliar</option><option value="Inquérito nacional">Inquérito nacional</option><option value="Oferta de serviços">Oferta de serviços</option><option value="Painéis">Painéis</option><option value="Plataforma integrada">Plataforma integrada</option><option value="Portal">Portal</option><option value="Portal temático">Portal temático</option><option value="Rastreamento / câncer">Rastreamento / câncer</option><option value="Recursos hídricos">Recursos hídricos</option><option value="Saneamento">Saneamento</option><option value="Saúde ambiental / regulação">Saúde ambiental / regulação</option><option value="Saúde suplementar">Saúde suplementar</option><option value="Tabelas agregadas">Tabelas agregadas</option><option value="Tabulador">Tabulador</option><option value="Território / endereços">Território / endereços</option><option value="Vigilância epidemiológica">Vigilância epidemiológica</option>
+        </select>
+        <select id="fmtFilter">
+          <option value="">Todos os formatos</option>
+          <option value="Busca / download">Busca / download</option><option value="CSV / ZIP">CSV / ZIP</option><option value="Catálogo">Catálogo</option><option value="Consulta / download">Consulta / download</option><option value="Consulta / integrador">Consulta / integrador</option><option value="Consulta / publicações">Consulta / publicações</option><option value="Consulta pública">Consulta pública</option><option value="Integrador">Integrador</option><option value="Microdados / relatórios">Microdados / relatórios</option><option value="Microdados / tabelas / publicações">Microdados / tabelas / publicações</option><option value="Painel">Painel</option><option value="Painel / consulta">Painel / consulta</option><option value="Painéis">Painéis</option><option value="Planilhas">Planilhas</option><option value="Plataforma">Plataforma</option><option value="Portal">Portal</option><option value="Portal / documentação">Portal / documentação</option><option value="Portal / links">Portal / links</option><option value="Portal / painéis">Portal / painéis</option><option value="Portal / planilhas / painéis">Portal / planilhas / painéis</option><option value="Portal / relatórios">Portal / relatórios</option><option value="Portal / área restrita + pública">Portal / área restrita + pública</option><option value="TABNET / download">TABNET / download</option><option value="Tabelas / planilhas">Tabelas / planilhas</option><option value="Tabelas / publicações">Tabelas / publicações</option><option value="Tabulador web">Tabulador web</option><option value="Tabulador web / API">Tabulador web / API</option>
+        </select>
+        <button id="resetBtn" class="btn btn-ghost" type="button">Limpar filtros</button>
+        <button id="csvBtn" class="btn" type="button">Exportar CSV</button>
+      </section>
+
+      <section class="table-shell">
+        <table id="dbTable">
+          <thead>
+            <tr>
+              <th>Órgão / Fonte</th>
+              <th>Base / sistema / portal</th>
+              <th>Categoria</th>
+              <th>Quais dados estão disponíveis</th>
+              <th>Nível de agregação</th>
+              <th>Formato de acesso</th>
+              <th>Uso em pesquisa</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+      <p class="tablenote">Clique em qualquer linha para abrir a base em uma nova aba. Esta não é uma ferramenta oficial do Governo Brasileiro — apenas uma coletânea curada de bases de dados públicas para fins de pesquisa.</p>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ftC">
+    <div class="container container-wide">
+      <div class="top">
+        <div class="brand">
+          <div class="wm"><img src="assets/Logo-White.png" alt=""><b>Instituto <em class="serif-gold">MONSTER</em><small>CIÊNCIA · SAÚDE · AÇÃO</small></b></div>
+          <p class="ftnote">Diretório curado de bases de dados públicas brasileiras para apoio à pesquisa em saúde.</p>
+        </div>
+        <div class="meta">
+          <div class="metacol"><span class="k">Aviso</span><span class="v">Esta não é uma ferramenta oficial do Governo Brasileiro, apenas uma coletânea de dados públicos.</span></div>
+          <div class="metacol"><span class="k">Compilação</span><span class="v">Lucas dos Santos Cruz</span></div>
+          <div class="metacol"><span class="k">Atualizado em</span><span class="v">31/03/2026</span></div>
+        </div>
+      </div>
+      <div class="bottom">
+        <span>© Iniciativa MONSTER</span>
+        <span>Bases de dados públicas do Brasil</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Engole a rejeição benigna de View Transition entre documentos (base.css),
+    // que não se aplica a esta página independente.
+    window.addEventListener('unhandledrejection', function (e) {
+      if (e && e.reason && String(e.reason).indexOf('Transition was skipped') !== -1) {
+        e.preventDefault();
+      }
+    });
+  </script>
+  <script>
+const data = [{"orgao": "ANA", "base": "Hidroweb – datasets", "categoria": "Hidrometeorologia", "dados": "Busca de datasets com estações, chuva, rios e séries históricas hidrometeorológicas.", "nivel": "Estação", "formato": "Busca / download", "uso": "Cheias, secas, leptospirose, arboviroses e eventos climáticos.", "link": "https://dadosabertos.ana.gov.br/search?tags=hidroweb"}, {"orgao": "ANA", "base": "Monitor de Secas do Brasil", "categoria": "Clima e ambiente", "dados": "Acompanhamento contínuo do grau de severidade das secas no Brasil com base em indicadores climáticos e impactos.", "nivel": "UF / região / território", "formato": "Painel / mapas", "uso": "Estudos sobre seca, recursos hídricos e saúde ambiental.", "link": "https://monitordesecas.ana.gov.br/"}, {"orgao": "ANA", "base": "Portal de Dados Abertos da ANA", "categoria": "Recursos hídricos", "dados": "Catálogo de conjuntos de dados da ANA e SNIRH.", "nivel": "Estação / bacia / território", "formato": "Catálogo", "uso": "Exposições ambientais e contexto hídrico.", "link": "https://dadosabertos.ana.gov.br/"}, {"orgao": "ANS", "base": "Dados abertos", "categoria": "Dados abertos", "dados": "Plano de dados abertos e conjuntos de dados da saúde suplementar.", "nivel": "Variável", "formato": "Catálogo", "uso": "Descoberta de datasets e documentação.", "link": "https://www.gov.br/ans/pt-br/acesso-a-informacao/perfil-do-setor/dados-abertos-1"}, {"orgao": "ANS", "base": "Dados do setor", "categoria": "Saúde suplementar", "dados": "Página central de dados e consultas sobre beneficiários, operadoras e planos.", "nivel": "Operadora / beneficiário agregado / território", "formato": "Portal", "uso": "Entrada para análise do setor suplementar.", "link": "https://www.gov.br/ans/pt-br/acesso-a-informacao/perfil-do-setor"}, {"orgao": "ANS", "base": "Dados e indicadores do setor", "categoria": "Saúde suplementar", "dados": "Planilhas e séries históricas consolidadas do setor de planos de saúde.", "nivel": "Município, UF, Brasil / operadora", "formato": "Planilhas", "uso": "Séries históricas e monitoramento de cobertura.", "link": "https://www.gov.br/ans/pt-br/acesso-a-informacao/perfil-do-setor/dados-e-indicadores-do-setor"}, {"orgao": "ANS", "base": "Dados gerais", "categoria": "Saúde suplementar", "dados": "Tabelas de beneficiários, cobertura e séries históricas do setor.", "nivel": "Município, UF, Brasil / operadora", "formato": "Tabelas / planilhas", "uso": "Cobertura de planos, mercado e comparação com SUS.", "link": "https://www.gov.br/ans/pt-br/acesso-a-informacao/perfil-do-setor/dados-gerais"}, {"orgao": "Anvisa", "base": "Dados abertos", "categoria": "Dados abertos", "dados": "Catálogo de bases abertas e acesso à inteligência analítica da Anvisa.", "nivel": "Variável", "formato": "Catálogo", "uso": "Entrada para bases regulatórias e sanitárias.", "link": "https://www.gov.br/anvisa/pt-br/acessoainformacao/dadosabertos"}, {"orgao": "Anvisa", "base": "Informações analíticas", "categoria": "Painéis", "dados": "Painéis sobre farmacovigilância, petições, inspeções, produtos e outros temas finalísticos.", "nivel": "Variável", "formato": "Painéis", "uso": "Monitoramento regulatório e exploração rápida.", "link": "https://www.gov.br/anvisa/pt-br/acessoainformacao/dadosabertos/informacoes-analiticas/inicial"}, {"orgao": "Anvisa", "base": "Monografias de agrotóxicos", "categoria": "Saúde ambiental / regulação", "dados": "Ingredientes ativos e monografias de agrotóxicos autorizados ou avaliados.", "nivel": "Produto / ingrediente ativo", "formato": "Painel / consulta", "uso": "Exposição ambiental e regulação sanitária.", "link": "https://www.gov.br/anvisa/pt-br/acessoainformacao/dadosabertos/informacoes-analiticas/monografias-de-agrotoxicos"}, {"orgao": "Anvisa", "base": "Notificações de farmacovigilância", "categoria": "Farmacoepidemiologia", "dados": "Eventos adversos relacionados a medicamentos e vacinas notificados à Anvisa.", "nivel": "Notificação / agregado", "formato": "Painel", "uso": "Segurança de medicamentos e farmacovigilância.", "link": "https://www.gov.br/anvisa/pt-br/acessoainformacao/dadosabertos/informacoes-analiticas/notificacoes-de-farmacovigilancia"}, {"orgao": "CEMADEN", "base": "Mapa Interativo do CEMADEN", "categoria": "Clima e ambiente", "dados": "Download de dados pluviométricos, hidrológicos e geotécnicos das redes monitoradas pelo CEMADEN.", "nivel": "Estação / município", "formato": "Mapa interativo / download", "uso": "Monitoramento de chuva, hidrologia e risco de desastres.", "link": "https://mapainterativo.cemaden.gov.br/"}, {"orgao": "CEMADEN", "base": "Monitoramento de Secas e Impactos", "categoria": "Clima e ambiente", "dados": "Monitoramento da seca no Brasil com mapas, indicadores e recortes municipais recentes.", "nivel": "Município / território", "formato": "Portal / mapas", "uso": "Seca, vulnerabilidade e impactos socioambientais.", "link": "https://www.gov.br/cemaden/pt-br/assuntos/monitoramento/impactos-seca/monitoramento-de-seca-para-o-brasil/monitoramento-de-secas-e-impactos-no-brasil-2013-janeiro-2026"}, {"orgao": "CPTEC/INPE", "base": "CPTEC – portal climático", "categoria": "Clima e ambiente", "dados": "Portal com monitoramento, previsão climática e produtos observacionais do CPTEC/INPE.", "nivel": "Território / grade", "formato": "Portal", "uso": "Contextualização climática e acesso a produtos atmosféricos e ambientais.", "link": "https://clima.cptec.inpe.br/"}, {"orgao": "CPTEC/INPE", "base": "Clima Monitoramento Brasil", "categoria": "Clima e ambiente", "dados": "Monitoramento diário e mensal de precipitação, temperatura e índices climáticos no Brasil.", "nivel": "Grade / território", "formato": "Plataforma / mapas", "uso": "Monitoramento climático e apoio a estudos ecológicos e séries temporais.", "link": "https://clima.cptec.inpe.br/monitoramentobrasil/pt"}, {"orgao": "Fiocruz", "base": "Dados abertos", "categoria": "Dados abertos", "dados": "Página institucional de dados abertos e acesso a plataformas e repositórios.", "nivel": "Variável", "formato": "Portal", "uso": "Entrada para repositórios e plataformas Fiocruz.", "link": "https://fiocruz.br/dados-abertos"}, {"orgao": "Fiocruz", "base": "PCDaS", "categoria": "Plataforma integrada", "dados": "Plataforma pública com dados e ferramentas para pesquisa em saúde e determinantes.", "nivel": "Município, território, séries diversas", "formato": "Plataforma", "uso": "Integração de indicadores de saúde e contexto.", "link": "https://www.icict.fiocruz.br/plataformapcdas"}, {"orgao": "Fiocruz", "base": "Portal PCDaS", "categoria": "Plataforma integrada", "dados": "Portal da Plataforma de Ciência de Dados Aplicada à Saúde.", "nivel": "Município, território, séries diversas", "formato": "Plataforma", "uso": "Exploração e visualização de dados aplicados à saúde.", "link": "https://pcdas.icict.fiocruz.br/"}, {"orgao": "IBGE", "base": "CNEFE", "categoria": "Território / endereços", "dados": "Cadastro Nacional de Endereços para Fins Estatísticos.", "nivel": "Endereço / setor / território", "formato": "Portal / documentação", "uso": "Georreferenciamento e apoio territorial.", "link": "https://www.ibge.gov.br/estatisticas/sociais/populacao/38734-cadastro-nacional-de-enderecos-para-fins-estatisticos.html"}, {"orgao": "IBGE", "base": "Cidades@", "categoria": "Consulta territorial", "dados": "Indicadores e informações rápidas por município, estado e Brasil.", "nivel": "Município, UF, Brasil", "formato": "Portal", "uso": "Consulta rápida para perfil territorial.", "link": "https://cidades.ibge.gov.br/"}, {"orgao": "IBGE", "base": "MUNIC – Pesquisa de Informações Básicas Municipais", "categoria": "Gestão municipal", "dados": "Informações sobre estrutura, gestão, legislação, políticas públicas e capacidade administrativa dos municípios brasileiros.", "nivel": "Município", "formato": "Tabelas / downloads / publicações", "uso": "Análise de capacidade institucional municipal e contexto de políticas públicas locais.", "link": "https://www.ibge.gov.br/estatisticas/sociais/educacao/10586-pesquisa-de-informacoes-basicas-municipais.html"}, {"orgao": "IBGE", "base": "PNAD Contínua", "categoria": "Inquérito domiciliar", "dados": "Microdados, séries históricas e painéis da Pesquisa Nacional por Amostra de Domicílios Contínua, incluindo trabalho, rendimento e suplementos temáticos.", "nivel": "Indivíduo / domicílio", "formato": "Microdados / painéis / publicações", "uso": "Análises populacionais contínuas, mercado de trabalho e determinantes sociais em saúde.", "link": "https://www.ibge.gov.br/estatisticas/sociais/saude/9171-pesquisa-nacional-por-amostra-de-domicilios-continua-mensal.html"}, {"orgao": "IBGE", "base": "PNAD – Pesquisa Nacional por Amostra de Domicílios", "categoria": "Inquérito domiciliar", "dados": "Pesquisa domiciliar clássica do IBGE, com microdados e suplementos temáticos históricos sobre população, trabalho, educação, rendimento e condições de vida.", "nivel": "Indivíduo / domicílio", "formato": "Microdados / tabelas / publicações", "uso": "Séries históricas e análises socioeconômicas anteriores à PNAD Contínua.", "link": "https://www.ibge.gov.br/estatisticas/sociais/populacao/9127-pesquisa-nacional-por-amostra-de-domicilios.html"}, {"orgao": "IBGE", "base": "PNS – Pesquisa Nacional de Saúde", "categoria": "Inquérito nacional", "dados": "Condições de saúde, DCNT, acesso e uso de serviços, APS, estilos de vida, antropometria e exames em alguns módulos.", "nivel": "Indivíduo / domicílio", "formato": "Microdados / tabelas / publicações", "uso": "Epidemiologia analítica e descritiva com autorrelato.", "link": "https://www.ibge.gov.br/estatisticas/sociais/saude/9160-pesquisa-nacional-de-saude.html"}, {"orgao": "IBGE", "base": "POF – Pesquisa de Orçamentos Familiares", "categoria": "Inquérito domiciliar", "dados": "Estrutura de gastos e rendimentos, características nutricionais e condições de vida.", "nivel": "Domicílio / indivíduo", "formato": "Microdados / tabelas / publicações", "uso": "Nutrição, insegurança alimentar, perfil socioeconômico.", "link": "https://www.ibge.gov.br/pof2024/"}, {"orgao": "IBGE", "base": "PeNSE – Pesquisa Nacional de Saúde do Escolar", "categoria": "Inquérito nacional", "dados": "Comportamentos, fatores de risco e proteção, violência, saúde mental, alimentação e substâncias entre escolares.", "nivel": "Indivíduo / escola", "formato": "Microdados / tabelas / publicações", "uso": "Saúde do adolescente e fatores comportamentais.", "link": "https://www.ibge.gov.br/estatisticas/sociais/saude/9134-pesquisa-nacional-de-saude-do-escolar.html"}, {"orgao": "IBGE", "base": "Perfil dos Municípios Brasileiros (MUNIC – suplementos)", "categoria": "Gestão municipal", "dados": "Suplementos temáticos da MUNIC, incluindo módulos setoriais úteis para estudos de saúde, saneamento e gestão local.", "nivel": "Município", "formato": "Tabelas / publicações", "uso": "Estudos ecológicos sobre infraestrutura municipal e capacidade de gestão.", "link": "https://www.ibge.gov.br/estatisticas/sociais/saude/19879-suplementos-munic2.html"}, {"orgao": "IBGE", "base": "SIDRA", "categoria": "Tabelas agregadas", "dados": "Tabelas agregadas do IBGE para população, renda, domicílios, educação, fecundidade, saneamento e mais.", "nivel": "Município, UF, Brasil", "formato": "Tabulador web / API", "uso": "Denominadores, indicadores contextuais, padronização de taxas.", "link": "https://sidra.ibge.gov.br/"}, {"orgao": "IBGE", "base": "Saúde – página temática", "categoria": "Portal temático", "dados": "Hub com pesquisas, tabelas e publicações em saúde.", "nivel": "Variável", "formato": "Portal", "uso": "Ponto de entrada para inquéritos e estatísticas em saúde.", "link": "https://www.ibge.gov.br/estatisticas/sociais/saude.html"}, {"orgao": "IBGE", "base": "Tábuas Completas de Mortalidade", "categoria": "Demografia", "dados": "Probabilidades de morte e expectativa de vida por sexo e idade.", "nivel": "Brasil / UF", "formato": "Tabelas / publicações", "uso": "Demografia da saúde, indicadores sintéticos e sobrevivência populacional.", "link": "https://www.ibge.gov.br/estatisticas/sociais/populacao/9126-tabuas-completas-de-mortalidade.html"}, {"orgao": "INCA", "base": "Morbidade hospitalar em câncer", "categoria": "Câncer", "dados": "Acesso ao integrador RHC para dados de morbidade hospitalar por câncer.", "nivel": "Paciente / hospital", "formato": "Integrador", "uso": "Perfil hospitalar oncológico.", "link": "https://www.gov.br/inca/pt-br/assuntos/cancer/numeros/vigilancia/morbidade-hospitalar"}, {"orgao": "INCA", "base": "RCBP – Registros de Câncer de Base Populacional", "categoria": "Câncer", "dados": "Incidência, distribuição e tendência de casos novos em áreas cobertas.", "nivel": "População / território coberto", "formato": "Consulta / publicações", "uso": "Incidência e tendência temporal em câncer.", "link": "https://www.gov.br/inca/pt-br/assuntos/cancer/numeros/registros/base-populacional"}, {"orgao": "INCA", "base": "RHC – Registros Hospitalares de Câncer", "categoria": "Câncer", "dados": "Dados sistemáticos de pacientes com diagnóstico confirmado de câncer atendidos em hospitais.", "nivel": "Paciente / hospital", "formato": "Consulta / integrador", "uso": "Perfil assistencial e clínico em oncologia.", "link": "https://www.gov.br/inca/pt-br/assuntos/cancer/numeros/registros/rhc"}, {"orgao": "INCA", "base": "Registros de câncer", "categoria": "Câncer", "dados": "Página-índice dos registros hospitalares e de base populacional.", "nivel": "Variável", "formato": "Portal", "uso": "Ponto de entrada para epidemiologia oncológica.", "link": "https://www.gov.br/inca/pt-br/assuntos/cancer/numeros/registros"}, {"orgao": "INMET", "base": "BDMEP – Banco de Dados Meteorológicos", "categoria": "Clima e ambiente", "dados": "Séries históricas de estações meteorológicas convencionais do INMET com variáveis diárias padronizadas.", "nivel": "Estação", "formato": "Banco de dados / download", "uso": "Temperatura, precipitação e outras variáveis meteorológicas em séries históricas.", "link": "https://bdmep.inmet.gov.br/"}, {"orgao": "INMET", "base": "Dados Históricos Meteorológicos", "categoria": "Clima e ambiente", "dados": "Página de acesso aos históricos de dados meteorológicos, estações automáticas e convencionais do INMET.", "nivel": "Estação", "formato": "Portal / download", "uso": "Busca e extração de históricos meteorológicos oficiais.", "link": "https://portal.inmet.gov.br/dadoshistoricos"}, {"orgao": "INMET", "base": "Mapa de Estações Meteorológicas", "categoria": "Clima e ambiente", "dados": "Mapa interativo das estações meteorológicas e camadas associadas, com consulta por tipo de estação e parâmetro.", "nivel": "Estação / território", "formato": "Mapa interativo", "uso": "Localização de estações e apoio ao desenho de estudos ambientais.", "link": "https://mapas.inmet.gov.br/"}, {"orgao": "INPE", "base": "BDQueimadas – Programa Queimadas", "categoria": "Clima e ambiente", "dados": "Focos de queimadas detectados por satélite, análise espacial e temporal, imagens, camadas e séries desde 1998.", "nivel": "Ponto / grade / território", "formato": "Plataforma / consulta", "uso": "Exposição ambiental, eventos extremos, queimadas e efeitos em saúde.", "link": "https://data.inpe.br/queimadas/bdqueimadas/"}, {"orgao": "INPE", "base": "Programa Queimadas – portal", "categoria": "Clima e ambiente", "dados": "Portal do Programa Queimadas com acesso ao acervo de focos de fogo, imagens e dados meteorológicos associados.", "nivel": "Ponto / território", "formato": "Portal", "uso": "Entrada para monitoramento e análise de queimadas no Brasil e América Latina.", "link": "https://terrabrasilis.dpi.inpe.br/queimadas/portal/"}, {"orgao": "Ipea", "base": "Atlas da Vulnerabilidade Social (IVS)", "categoria": "Determinantes sociais", "dados": "Indicadores de vulnerabilidade social por município, UF e regiões metropolitanas.", "nivel": "Município, UF, RM", "formato": "Portal", "uso": "Estratificação socioeconômica e modelagem contextual.", "link": "https://ivs.ipea.gov.br/"}, {"orgao": "Ministério da Saúde", "base": "Base Vigitel 2006–2024", "categoria": "Inquérito nacional", "dados": "Base consolidada em CSV do Vigitel Brasil 2006–2024 e dicionário de dados.", "nivel": "Indivíduo / capitais e DF", "formato": "CSV / ZIP", "uso": "Análises comparativas de longo prazo em fatores de risco para DCNT.", "link": "https://svs.aids.gov.br/daent/cgdnt/vigitel/"}, {"orgao": "Ministério da Saúde", "base": "Painel e-SUS APS", "categoria": "Atenção Primária", "dados": "Visualização de indicadores por município, UBS e equipe na APS.", "nivel": "Município, UBS, equipe", "formato": "Painel", "uso": "Monitoramento rápido do cenário local da APS.", "link": "https://sisaps.saude.gov.br/sistemas/painelesusaps/"}, {"orgao": "Ministério da Saúde", "base": "Painéis de vacinação", "categoria": "Imunização", "dados": "Cobertura vacinal, doses aplicadas, distribuição e painéis por imunobiológico.", "nivel": "Município, UF, Brasil", "formato": "Painéis", "uso": "Cobertura vacinal, desigualdades territoriais, séries temporais.", "link": "https://www.gov.br/saude/pt-br/vacinacao/paineis-de-vacinacao"}, {"orgao": "Ministério da Saúde", "base": "Portal de Dados Abertos do SUS", "categoria": "Dados abertos", "dados": "Catálogo de conjuntos de dados abertos do Ministério da Saúde e do SUS.", "nivel": "Variável", "formato": "Catálogo", "uso": "Encontrar datasets além dos tabuladores clássicos.", "link": "https://dadosabertos.saude.gov.br/"}, {"orgao": "Ministério da Saúde", "base": "SISAB", "categoria": "Atenção Primária", "dados": "Indicadores, produção e validação de envio da APS / e-SUS APS.", "nivel": "Município, UBS, equipe", "formato": "Portal / relatórios", "uso": "Desempenho e cobertura da APS.", "link": "https://sisab.saude.gov.br/"}, {"orgao": "Ministério da Saúde", "base": "Vigitel", "categoria": "Inquérito nacional", "dados": "Fatores de risco e proteção para DCNT em capitais e DF; microdados, dicionário e relatórios anuais.", "nivel": "Indivíduo / capitais e DF", "formato": "Microdados / relatórios", "uso": "DCNT, tabagismo, álcool, atividade física, alimentação, obesidade.", "link": "https://www.gov.br/saude/pt-br/composicao/svsa/inqueritos-de-saude/vigitel"}, {"orgao": "Ministério da Saúde", "base": "e-Gestor APS", "categoria": "Atenção Primária", "dados": "Informações sobre programas, ações, estratégias e credenciamentos na APS; parte exige acesso restrito.", "nivel": "Município, estado", "formato": "Portal / área restrita + pública", "uso": "Contextualização de políticas e estrutura da APS.", "link": "https://egestoraps.saude.gov.br/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "CNES – Cadastro Nacional de Estabelecimentos de Saúde", "categoria": "Oferta de serviços", "dados": "Cadastro de estabelecimentos, leitos, serviços, equipes, vínculos e estrutura assistencial.", "nivel": "Estabelecimento / equipe", "formato": "Consulta / download", "uso": "Mapeamento de oferta e capacidade instalada.", "link": "https://datasus.saude.gov.br/cnes-estabelecimentos/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "DATASUS – portal principal", "categoria": "Portal", "dados": "Acesso central a sistemas, documentação, serviços e bases do SUS.", "nivel": "N/A", "formato": "Portal / links", "uso": "Ponto de entrada para localizar bases administrativas do SUS.", "link": "https://datasus.saude.gov.br/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "SIA/SUS – Produção ambulatorial", "categoria": "Assistência / ambulatório", "dados": "Produção ambulatorial por procedimento, especialidade, estabelecimento e período.", "nivel": "Procedimento / estabelecimento / território", "formato": "TABNET / download", "uso": "Acesso, rastreamento, terapias, produção especializada.", "link": "https://datasus.saude.gov.br/acesso-a-informacao/producao-ambulatorial-sia-sus/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "SIH/SUS – Produção hospitalar", "categoria": "Assistência / internações", "dados": "Internações do SUS, AIH, diagnósticos, procedimentos, permanência e valores.", "nivel": "Internação / estabelecimento / território", "formato": "TABNET / download", "uso": "Carga hospitalar, avaliação de serviços, custos e linhas de cuidado.", "link": "https://datasus.saude.gov.br/acesso-a-informacao/producao-hospitalar-sih-sus/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "SIM – Sistema de Informações sobre Mortalidade", "categoria": "Estatísticas vitais", "dados": "Óbitos por causa básica CID-10, idade, sexo, raça/cor, residência, ocorrência e período.", "nivel": "Registro individual anonimizado / agregados territoriais", "formato": "TABNET / download", "uso": "Mortalidade geral e específica, causas evitáveis, carga de doença.", "link": "https://datasus.saude.gov.br/mortalidade-desde-1996-pela-cid-10/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "SINAN – Agravos de notificação", "categoria": "Vigilância epidemiológica", "dados": "Notificações compulsórias de doenças e agravos, incluindo transmissíveis, violências e intoxicações.", "nivel": "Registro individual anonimizado / agregados territoriais", "formato": "TABNET / download", "uso": "Incidência notificada, distribuição territorial e perfil dos agravos.", "link": "https://datasus.saude.gov.br/acesso-a-informacao/doencas-e-agravos-de-notificacao-de-2007-em-diante-sinan/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "SINASC – Sistema de Informações sobre Nascidos Vivos", "categoria": "Estatísticas vitais", "dados": "Nascidos vivos, idade materna, escolaridade, gestação, parto, peso ao nascer e anomalias congênitas.", "nivel": "Registro individual anonimizado / agregados territoriais", "formato": "TABNET / download", "uso": "Saúde materno-infantil, prematuridade, baixo peso ao nascer.", "link": "https://datasus.saude.gov.br/nascidos-vivos-desde-1994/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "SISCAN", "categoria": "Rastreamento / câncer", "dados": "Informações sobre rastreamento e acompanhamento em câncer do colo do útero e mama.", "nivel": "Exame / seguimento / território", "formato": "Consulta pública", "uso": "Rastreamento e acesso a diagnóstico em câncer.", "link": "https://datasus.saude.gov.br/acesso-a-informacao/sistema-de-informacao-do-cancer-siscan-colo-do-utero-e-mama/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "TABNET – Informações de Saúde", "categoria": "Tabulador", "dados": "Tabulações online de mortalidade, nascidos vivos, morbidade, assistência e outros indicadores.", "nivel": "Município, UF, Brasil; alguns recortes por estabelecimento ou perfil individual agregado", "formato": "Tabulador web", "uso": "Séries temporais, estudos ecológicos, descrição epidemiológica.", "link": "https://datasus.saude.gov.br/informacoes-de-saude-tabnet/"}, {"orgao": "Ministério da Saúde / DATASUS", "base": "e-SUS Notifica", "categoria": "Vigilância epidemiológica", "dados": "Notificações de condições monitoradas em vigilância, com destaque histórico para Covid-19 e síndromes gripais.", "nivel": "Registro individual / agregados", "formato": "Portal / painéis", "uso": "Vigilância recente e monitoramento de surtos.", "link": "https://datasus.saude.gov.br/notifica/"}, {"orgao": "Ministério das Cidades", "base": "Painel do SNIS", "categoria": "Saneamento", "dados": "Painel público para exploração visual de indicadores do saneamento.", "nivel": "Município / prestador", "formato": "Painel", "uso": "Consulta rápida de cobertura e estrutura do saneamento.", "link": "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis/painel"}, {"orgao": "Ministério das Cidades", "base": "SINISA", "categoria": "Saneamento", "dados": "Novo Sistema Nacional de Informações em Saneamento Básico, sucessor do SNIS.", "nivel": "Município / prestador", "formato": "Portal", "uso": "Dados mais recentes em saneamento básico.", "link": "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/sinisa"}, {"orgao": "Ministério das Cidades", "base": "SNIS", "categoria": "Saneamento", "dados": "Diagnósticos, glossários, indicadores e séries históricas de saneamento de anos anteriores.", "nivel": "Município / prestador", "formato": "Portal / planilhas / painéis", "uso": "Saneamento como determinante ambiental em saúde.", "link": "https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis"}];
+
+const tbody = document.querySelector('#dbTable tbody');
+const searchEl = document.getElementById('search');
+const orgEl = document.getElementById('orgFilter');
+const catEl = document.getElementById('catFilter');
+const fmtEl = document.getElementById('fmtFilter');
+const resetBtn = document.getElementById('resetBtn');
+const csvBtn = document.getElementById('csvBtn');
+
+const statTotal = document.getElementById('statTotal');
+const statOrg = document.getElementById('statOrg');
+const statCat = document.getElementById('statCat');
+const statVisible = document.getElementById('statVisible');
+
+function normalize(s) {
+  return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function render(rows) {
+  tbody.innerHTML = rows.map(r => `
+    <tr class="rowlink" data-href="${r.link}" role="link" tabindex="0" title="Abrir ${r.base}" aria-label="Abrir ${r.base} em nova aba">
+      <td>${r.orgao}</td>
+      <td><strong>${r.base}</strong><span class="ext-arr">↗</span></td>
+      <td><span class="cat-pill">${r.categoria}</span></td>
+      <td>${r.dados}</td>
+      <td>${r.nivel}</td>
+      <td>${r.formato}</td>
+      <td>${r.uso}</td>
+    </tr>
+  `).join('');
+  statVisible.textContent = rows.length;
+}
+
+tbody.addEventListener('click', (e) => {
+  const tr = e.target.closest('tr.rowlink');
+  if (!tr || !tr.dataset.href) return;
+  window.open(tr.dataset.href, '_blank', 'noopener');
+});
+tbody.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const tr = e.target.closest('tr.rowlink');
+  if (!tr || !tr.dataset.href) return;
+  e.preventDefault();
+  window.open(tr.dataset.href, '_blank', 'noopener');
+});
+
+function filteredRows() {
+  const q = normalize(searchEl.value);
+  const org = normalize(orgEl.value);
+  const cat = normalize(catEl.value);
+  const fmt = normalize(fmtEl.value);
+
+  return data.filter(r => {
+    const hay = normalize([r.orgao, r.base, r.categoria, r.dados, r.nivel, r.formato, r.uso].join(' '));
+    const okQ = !q || hay.includes(q);
+    const okOrg = !org || normalize(r.orgao) === org;
+    const okCat = !cat || normalize(r.categoria) === cat;
+    const okFmt = !fmt || normalize(r.formato) === fmt;
+    return okQ && okOrg && okCat && okFmt;
+  });
+}
+
+function applyFilters() {
+  render(filteredRows());
+}
+
+function downloadCSV(rows) {
+  const headers = ['Órgão/Fonte','Base','Categoria','Quais dados estão disponíveis','Nível de agregação','Formato de acesso','Uso em pesquisa','Link'];
+  const esc = v => '"' + String(v ?? '').replaceAll('"', '""') + '"';
+  const lines = [
+    headers.map(esc).join(','),
+    ...rows.map(r => [r.orgao, r.base, r.categoria, r.dados, r.nivel, r.formato, r.uso, r.link].map(esc).join(','))
+  ];
+  const blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'imonster_bases_publicas_saude_luxo.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+searchEl.addEventListener('input', applyFilters);
+orgEl.addEventListener('change', applyFilters);
+catEl.addEventListener('change', applyFilters);
+fmtEl.addEventListener('change', applyFilters);
+
+resetBtn.addEventListener('click', () => {
+  searchEl.value = '';
+  orgEl.value = '';
+  catEl.value = '';
+  fmtEl.value = '';
+  applyFilters();
+});
+
+csvBtn.addEventListener('click', () => downloadCSV(filteredRows()));
+
+statTotal.textContent = data.length;
+statOrg.textContent = new Set(data.map(d => d.orgao)).size;
+statCat.textContent = new Set(data.map(d => d.categoria)).size;
+applyFilters();
+  </script>
+</body>
+</html>
